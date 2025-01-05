@@ -1,0 +1,8 @@
+create user account
+    first init mongoose
+    second create Schema
+    thrid create models for mongoose database
+    fourth usercreate -> password -> hash convert
+    fivth create token through jwt token & save cookies
+
+    sixth login user -> verifiy user by token -> password decrypt -> get user data

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Welcome</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="/css/style.css">
+
+</head>
+<body>
+    <div class="logout flex w-full flex-end justify-end items-end mr-8 my-5 flex-col">
+    <% if(!data.userName){%>
+        <form action="/user/login" method="get" class="flex w-full flex-end justify-end items-end mr-8 my-5 flex-col">
+            <button type="submit">Login</button>
+           </form>
+   <% }else{ %>
+    <form action="/user/logout" method="post" class="flex w-full flex-end justify-end items-end mr-8 flex-col">
+        <button type="submit">Logout</button>
+       </form>
+  <% } %>
+    </div>
+    <main class="absolute inset-y-5">
+    <h1>profile Details</h1>
+    </main> 
+    <div class="details px-[80px] flex justify-start items-start flex-col w-full">
+        <h2 class="text-zinc-200">Full Name : <span class="uppercase"><%= data.fullName %></span></h2>
+        <h2 class="text-zinc-200">User Name : <span class="uppercase"><%= data.userName %></span></h2>
+        <h2 class="text-zinc-200">Contact Details : <span class="uppercase"><%= data.contact%></span></h2>
+        <h2 class="text-zinc-200">E-Mail id : <span class="uppercase"><%= data.email %></span></h2>
+        <h2 class="text-zinc-200">password : <span class=""><%= realPass %></span></h2>
+    </div>
+</body>
+</html>
