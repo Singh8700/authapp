@@ -26,6 +26,7 @@ app.use("/user",singUpDetails)
 app.use("/user",loginDetails)
 app.use("/user",LogoutDetails)
 
+
 app.listen(3000,()=>{
     console.log("server ")
 })

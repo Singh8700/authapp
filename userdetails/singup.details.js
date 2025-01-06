@@ -12,18 +12,17 @@ const bcrypt = require("bcrypt")
 const userModel = require("../models/user.model")
 const jwt = require("jsonwebtoken")
 
+
+// username module
+const userCheck = require("../middlewares/username.middle")
+
 routes.get("/singup",(req,res)=>{
     res.render("signup")
 })
 
 routes.post("/singup-data",
     // use custom middleware to remove extra spaces
-    body("userName").trim().isLength({min:3}),
-    body("fullName").trim().isLength({min:3}),
-    body("contact").trim().isNumeric().isLength({min:10,max:10}),
-    body("email").trim().isEmail().isLength({min:13}),
-    body("password").trim().isLength({min:6}),
-    
+    userCheck,
     async (req,res)=>{
     // check same error is form yes or not
     const errors = validationResult(req.body)
