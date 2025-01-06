@@ -35,7 +35,7 @@ routes.post("/singup-data",
     }
     
     // console.log("user files",req.body)
-    try{
+   
         const {userName,fullName,email,contact,password} = req.body  
 
         await bcrypt.genSalt(10, async (error, salt)=>{
@@ -50,24 +50,20 @@ routes.post("/singup-data",
                     password:hash
                 })
                 // after create user now we login by default (using jwt token)
-                const token = jwt.sign({
+                const token = await jwt.sign({
                     hash
                 },process.env.JWT_SECRET)
-                const tempfile = jwt.sign({ password }, process.env.JWT_SECRET)
+                const tempfile = await jwt.sign({ password }, process.env.JWT_SECRET)
                     res.cookie("user", token)
-                    res.cookie("tempfile", tempfile)
-                    const realPass = await jwt.verify(req.cookies.tempfile,process.env.JWT_SECRET).userPassword
-                    res.render("index",{
-                        data:createUser,realPass
+                    // console.log("jwt temfile check",tempfile)
+                    const realPass = await jwt.verify(tempfile,process.env.JWT_SECRET)
+                    // console.log("temp file : ",realPass)
+                   await res.render("index",{
+                        data:createUser,realPass:realPass.password
                     })
             })
         })
-    }catch (error){
-        res.status(400).json({
-            error,
-            msg:"password is wrong"
-        })
-    }
+    
 })
 
 
